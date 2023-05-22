@@ -8,6 +8,7 @@ import numpy as np
 import pandas as pd
 import tensorflow as tf
 import math
+import tabulate
 #+end_src
 
 #+RESULTS:
@@ -25,56 +26,18 @@ This data set provides supply chain health commodity shipment and pricing data. 
 
 #+begin_src jupyter-python :exports both :results value raw
 # Load the dataset into Pandas DataFrame
-dataset_df = pd.read_csv("/Users/umbertofasci/Downloads/Supply_Chain_Shipment_Pricing_Data.csv")
+dataset_df = pd.read_csv("Supply_Chain_Shipment_Pricing_Data.csv")
 
 # Display the first 3 examples
-dataset_df.tail()
+print(dataset_df.tail().to_markdown())
 
 #+end_src
 
 #+RESULTS:
-#+begin_example
-          id project code       pq # po / so # asn/dn #        country
-10319  86818   103-ZW-T30  FPQ-15197  SO-50020  DN-4307       Zimbabwe  \
-10320  86819   104-CI-T30  FPQ-15259  SO-50102  DN-4313  Côte d'Ivoire
-10321  86821   110-ZM-T30  FPQ-14784  SO-49600  DN-4316         Zambia
-10322  86822   200-ZW-T30  FPQ-16523  SO-51680  DN-4334       Zimbabwe
-10323  86823   103-ZW-T30  FPQ-15197  SO-50022  DN-4336       Zimbabwe
-
-      managed by fulfill via vendor inco term shipment mode  ...
-10319   PMO - US    From RDC   N/A - From RDC         Truck  ...  \
-10320   PMO - US    From RDC   N/A - From RDC         Truck  ...
-10321   PMO - US    From RDC   N/A - From RDC         Truck  ...
-10322   PMO - US    From RDC   N/A - From RDC         Truck  ...
-10323   PMO - US    From RDC   N/A - From RDC         Truck  ...
-
-      unit of measure (per pack) line item quantity line item value
-10319                         60             166571       599655.60  \
-10320                         60              21072       137389.44
-10321                         30             514526      5140114.74
-10322                         60              17465       113871.80
-10323                         60              36639        72911.61
-
-      pack price unit price              manufacturing site
-10319       3.60       0.06      Mylan,  H-12 & H-13, India  \
-10320       6.52       0.11    Hetero Unit III Hyderabad IN
-10321       9.99       0.33   Cipla Ltd A-42 MIDC Mahar. IN
-10322       6.52       0.11  Mylan (formerly Matrix) Nashik
-10323       1.99       0.03               Cipla, Goa, India
-
-      first line designation          weight (kilograms)
-10319                  False     See DN-4307 (ID#:83920)  \
-10320                  False     See DN-4313 (ID#:83921)
-10321                  False  Weight Captured Separately
-10322                   True                        1392
-10323                  False  Weight Captured Separately
-
-                       freight cost (usd) line item insurance (usd)
-10319             See DN-4307 (ID#:83920)                    705.79
-10320             See DN-4313 (ID#:83921)                    161.71
-10321  Freight Included in Commodity Cost                   5284.04
-10322  Freight Included in Commodity Cost                    134.03
-10323  Freight Included in Commodity Cost                     85.82
-
-[5 rows x 33 columns]
-#+end_example
+: |       |    id | project code   | pq #      | po / so #   | asn/dn #   | country       | managed by   | fulfill via   | vendor inco term   | shipment mode   | pq first sent to client date   | po sent to vendor date   | scheduled delivery date   | delivered to client date   | delivery recorded date   | product group   | sub classification   | vendor        | item description                                                                   | molecule/test type                                 | brand   | dosage        | dosage form                       |   unit of measure (per pack) |   line item quantity |   line item value |   pack price |   unit price | manufacturing site             | first line designation   | weight (kilograms)         | freight cost (usd)                 |   line item insurance (usd) |
+: |------:|------:|:---------------|:----------|:------------|:-----------|:--------------|:-------------|:--------------|:-------------------|:----------------|:-------------------------------|:-------------------------|:--------------------------|:---------------------------|:-------------------------|:----------------|:---------------------|:--------------|:-----------------------------------------------------------------------------------|:---------------------------------------------------|:--------|:--------------|:----------------------------------|-----------------------------:|---------------------:|------------------:|-------------:|-------------:|:-------------------------------|:-------------------------|:---------------------------|:-----------------------------------|----------------------------:|
+: | 10319 | 86818 | 103-ZW-T30     | FPQ-15197 | SO-50020    | DN-4307    | Zimbabwe      | PMO - US     | From RDC      | N/A - From RDC     | Truck           | 10/16/2014                     | N/A - From RDC           | 31-Jul-15                 | 15-Jul-15                  | 20-Jul-15                | ARV             | Pediatric            | SCMS from RDC | Lamivudine/Nevirapine/Zidovudine 30/50/60mg, dispersible tablets, 60 Tabs          | Lamivudine/Nevirapine/Zidovudine                   | Generic | 30/50/60mg    | Chewable/dispersible tablet - FDC |                           60 |               166571 |  599656           |         3.6  |         0.06 | Mylan,  H-12 & H-13, India     | False                    | See DN-4307 (ID#:83920)    | See DN-4307 (ID#:83920)            |                      705.79 |
+: | 10320 | 86819 | 104-CI-T30     | FPQ-15259 | SO-50102    | DN-4313    | Côte d'Ivoire | PMO - US     | From RDC      | N/A - From RDC     | Truck           | 10/24/2014                     | N/A - From RDC           | 31-Jul-15                 | 6-Aug-15                   | 7-Aug-15                 | ARV             | Adult                | SCMS from RDC | Lamivudine/Zidovudine 150/300mg, tablets, 60 Tabs                                  | Lamivudine/Zidovudine                              | Generic | 150/300mg     | Tablet - FDC                      |                           60 |                21072 |  137389           |         6.52 |         0.11 | Hetero Unit III Hyderabad IN   | False                    | See DN-4313 (ID#:83921)    | See DN-4313 (ID#:83921)            |                      161.71 |
+: | 10321 | 86821 | 110-ZM-T30     | FPQ-14784 | SO-49600    | DN-4316    | Zambia        | PMO - US     | From RDC      | N/A - From RDC     | Truck           | 8/12/2014                      | N/A - From RDC           | 31-Aug-15                 | 25-Aug-15                  | 3-Sep-15                 | ARV             | Adult                | SCMS from RDC | Efavirenz/Lamivudine/Tenofovir Disoproxil Fumarate 600/300/300mg, tablets, 30 Tabs | Efavirenz/Lamivudine/Tenofovir Disoproxil Fumarate | Generic | 600/300/300mg | Tablet - FDC                      |                           30 |               514526 |       5.14011e+06 |         9.99 |         0.33 | Cipla Ltd A-42 MIDC Mahar. IN  | False                    | Weight Captured Separately | Freight Included in Commodity Cost |                     5284.04 |
+: | 10322 | 86822 | 200-ZW-T30     | FPQ-16523 | SO-51680    | DN-4334    | Zimbabwe      | PMO - US     | From RDC      | N/A - From RDC     | Truck           | 7/1/2015                       | N/A - From RDC           | 9-Sep-15                  | 4-Aug-15                   | 11-Aug-15                | ARV             | Adult                | SCMS from RDC | Lamivudine/Zidovudine 150/300mg, tablets, 60 Tabs                                  | Lamivudine/Zidovudine                              | Generic | 150/300mg     | Tablet - FDC                      |                           60 |                17465 |  113872           |         6.52 |         0.11 | Mylan (formerly Matrix) Nashik | True                     | 1392                       | Freight Included in Commodity Cost |                      134.03 |
+: | 10323 | 86823 | 103-ZW-T30     | FPQ-15197 | SO-50022    | DN-4336    | Zimbabwe      | PMO - US     | From RDC      | N/A - From RDC     | Truck           | 10/16/2014                     | N/A - From RDC           | 31-Aug-15                 | 4-Aug-15                   | 11-Aug-15                | ARV             | Pediatric            | SCMS from RDC | Lamivudine/Zidovudine 30/60mg, dispersible tablets, 60 Tabs                        | Lamivudine/Zidovudine                              | Generic | 30/60mg       | Chewable/dispersible tablet - FDC |                           60 |                36639 |   72911.6         |         1.99 |         0.03 | Cipla, Goa, India              | False                    | Weight Captured Separately | Freight Included in Commodity Cost |                       85.82 |
