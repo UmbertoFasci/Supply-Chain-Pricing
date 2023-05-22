@@ -1,0 +1,80 @@
+#+title: Supply Chain Shipment Pricing Prediction
+
+#+begin_src jupyter-python :export code
+import tensorflow_decision_forests as tfdf
+
+import os
+import numpy as np
+import pandas as pd
+import tensorflow as tf
+import math
+#+end_src
+
+#+RESULTS:
+
+#+begin_src jupyter-python :exports both
+print("Found TensorFlow Decision Forests v" + tfdf.__version__)
+#+end_src
+
+#+RESULTS:
+: Found TensorFlow Decision Forests v1.3.0
+
+* Download Supply Chain Shipment Pricing Data
+
+This data set provides supply chain health commodity shipment and pricing data. Specifically, the data set identifies Antiretroviral (ARV) and HIV lab shipments to supported countries. In addition, the data set provides the commodity pricing and associated supply chain expenses necessary to move the commodities to countries for use. The dataset has similar fields to the Global Fund's Price, Quality and Reporting (PQR) data. PEPFAR and the Global Fund represent the two largest procurers of HIV health commodities. This dataset, when analyzed in conjunction with the PQR data, provides a more complete picture of global spending on specific health commodities. The data are particularly valuable for understanding ranges and trends in pricing as well as volumes delivered by country. The US Government believes this data will help stakeholders make better, data-driven decisions. Care should be taken to consider contextual factors when using the database. Conclusions related to costs associated with moving specific line items or products to specific countries and lead times by product/country will not be accurate.
+
+#+begin_src jupyter-python :exports both :results value raw
+# Load the dataset into Pandas DataFrame
+dataset_df = pd.read_csv("/Users/umbertofasci/Downloads/Supply_Chain_Shipment_Pricing_Data.csv")
+
+# Display the first 3 examples
+dataset_df.tail()
+
+#+end_src
+
+#+RESULTS:
+#+begin_example
+          id project code       pq # po / so # asn/dn #        country
+10319  86818   103-ZW-T30  FPQ-15197  SO-50020  DN-4307       Zimbabwe  \
+10320  86819   104-CI-T30  FPQ-15259  SO-50102  DN-4313  Côte d'Ivoire
+10321  86821   110-ZM-T30  FPQ-14784  SO-49600  DN-4316         Zambia
+10322  86822   200-ZW-T30  FPQ-16523  SO-51680  DN-4334       Zimbabwe
+10323  86823   103-ZW-T30  FPQ-15197  SO-50022  DN-4336       Zimbabwe
+
+      managed by fulfill via vendor inco term shipment mode  ...
+10319   PMO - US    From RDC   N/A - From RDC         Truck  ...  \
+10320   PMO - US    From RDC   N/A - From RDC         Truck  ...
+10321   PMO - US    From RDC   N/A - From RDC         Truck  ...
+10322   PMO - US    From RDC   N/A - From RDC         Truck  ...
+10323   PMO - US    From RDC   N/A - From RDC         Truck  ...
+
+      unit of measure (per pack) line item quantity line item value
+10319                         60             166571       599655.60  \
+10320                         60              21072       137389.44
+10321                         30             514526      5140114.74
+10322                         60              17465       113871.80
+10323                         60              36639        72911.61
+
+      pack price unit price              manufacturing site
+10319       3.60       0.06      Mylan,  H-12 & H-13, India  \
+10320       6.52       0.11    Hetero Unit III Hyderabad IN
+10321       9.99       0.33   Cipla Ltd A-42 MIDC Mahar. IN
+10322       6.52       0.11  Mylan (formerly Matrix) Nashik
+10323       1.99       0.03               Cipla, Goa, India
+
+      first line designation          weight (kilograms)
+10319                  False     See DN-4307 (ID#:83920)  \
+10320                  False     See DN-4313 (ID#:83921)
+10321                  False  Weight Captured Separately
+10322                   True                        1392
+10323                  False  Weight Captured Separately
+
+                       freight cost (usd) line item insurance (usd)
+10319             See DN-4307 (ID#:83920)                    705.79
+10320             See DN-4313 (ID#:83921)                    161.71
+10321  Freight Included in Commodity Cost                   5284.04
+10322  Freight Included in Commodity Cost                    134.03
+10323  Freight Included in Commodity Cost                     85.82
+
+[5 rows x 33 columns]
+#+end_example
