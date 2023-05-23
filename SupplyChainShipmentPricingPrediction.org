@@ -243,7 +243,7 @@ def outlier_treatment(datacolumn):
 #+RESULTS:
 
 
-Obtain lower and upper bound values found in the line item value variable.
+Obtain lower and upper bound values found in the ~line item value~ variable.
 #+begin_src jupyter-python :exports both
 lowerbound_LIV,upperbound_LIV = outlier_treatment(dataset_df['line item value'])
 #+end_src
@@ -337,7 +337,7 @@ dataset_df[(dataset_df['line item value'] < lowerbound_LIV) | (dataset_df['line 
 [473 rows x 33 columns]
 #+end_example
 
-Detecting outliers in pack price variable.
+Detecting outliers in ~pack price~ variable.
 #+begin_src jupyter-python :exports both
 lowerbound_PP,upperbound_PP = outlier_treatment(dataset_df['pack price'])
 
