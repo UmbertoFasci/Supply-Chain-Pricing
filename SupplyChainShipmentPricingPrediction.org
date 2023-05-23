@@ -3,7 +3,7 @@
 * Introduction
 
 
-* Theoretical Background
+** Theoretical Background
 
 In this study, Gradient Boosted Tree, MLR, and supervised learning algorithms DNN, XGBoost regression, and LightGBM regression were used. The definition and characteristics of each algorithm are shown in [[Table 1]].
 
