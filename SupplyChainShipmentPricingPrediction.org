@@ -103,11 +103,122 @@ dataset_df.tail()
 
 *** Creating and Removing Variables
 
+Removing weight values which are not directly referenced within the dataset.
+
+#+begin_src jupyter-python
+dataset_df['weight (kilograms)'] = pd.to_numeric(dataset_df['weight (kilograms)'], errors = 'coerce')
+dataset_df.dropna(inplace = True)
+
+dataset_df.tail()
+#+end_src
+
+#+RESULTS:
+#+begin_example
+          id project code       pq # po / so # asn/dn #     country
+10306  86803   111-MZ-T30  FPQ-14843  SO-49721  DN-4236  Mozambique  \
+10310  86808   114-UG-T30  FPQ-15294  SO-50070  DN-4259      Uganda
+10315  86814   151-NG-T30  FPQ-14989  SO-51424  DN-4276     Nigeria
+10316  86815   151-NG-T30  FPQ-16313  SO-51420  DN-4279     Nigeria
+10322  86822   200-ZW-T30  FPQ-16523  SO-51680  DN-4334    Zimbabwe
+
+      managed by fulfill via vendor inco term shipment mode  ...
+10306   PMO - US    From RDC   N/A - From RDC         Truck  ...  \
+10310   PMO - US    From RDC   N/A - From RDC         Truck  ...
+10315   PMO - US    From RDC   N/A - From RDC   Air Charter  ...
+10316   PMO - US    From RDC   N/A - From RDC   Air Charter  ...
+10322   PMO - US    From RDC   N/A - From RDC         Truck  ...
+
+      unit of measure (per pack) line item quantity line item value
+10306                         30              16006        73467.54  \
+10310                         60              18000        64800.00
+10315                        120              70000      1304800.00
+10316                         60              15000        97800.00
+10322                         60              17465       113871.80
+
+      pack price unit price              manufacturing site
+10306       4.59       0.15   Hetero, Jadcherla, unit 5, IN  \
+10310       3.60       0.06  Mylan (formerly Matrix) Nashik
+10315      18.64       0.16     ABBVIE Ludwigshafen Germany
+10316       6.52       0.11       Aurobindo Unit III, India
+10322       6.52       0.11  Mylan (formerly Matrix) Nashik
+
+      first line designation weight (kilograms)
+10306                   True             1504.0  \
+10310                   True             2253.0
+10315                   True            15198.0
+10316                   True             1547.0
+10322                   True             1392.0
+
+                       freight cost (usd) line item insurance (usd)
+10306                              1653.9                     75.52
+10310                             3785.72                     76.27
+10315                               26180                   1341.33
+10316                                3410                    115.11
+10322  Freight Included in Commodity Cost                    134.03
+
+[5 rows x 33 columns]
+#+end_example
+
+Removing Freight Cost values that are not referenced within the dataset.
+
+#+begin_src jupyter-python
+dataset_df['freight cost (usd)'] = pd.to_numeric(dataset_df['freight cost (usd)'], errors = 'coerce')
+dataset_df.dropna(inplace = True)
+
+dataset_df.tail()
+#+end_src
+
+#+RESULTS:
+#+begin_example
+          id project code       pq # po / so # asn/dn #     country
+10305  86802   111-MZ-T30  FPQ-15195  SO-50130  DN-4235  Mozambique  \
+10306  86803   111-MZ-T30  FPQ-14843  SO-49721  DN-4236  Mozambique
+10310  86808   114-UG-T30  FPQ-15294  SO-50070  DN-4259      Uganda
+10315  86814   151-NG-T30  FPQ-14989  SO-51424  DN-4276     Nigeria
+10316  86815   151-NG-T30  FPQ-16313  SO-51420  DN-4279     Nigeria
+
+      managed by fulfill via vendor inco term shipment mode  ...
+10305   PMO - US    From RDC   N/A - From RDC         Truck  ...  \
+10306   PMO - US    From RDC   N/A - From RDC         Truck  ...
+10310   PMO - US    From RDC   N/A - From RDC         Truck  ...
+10315   PMO - US    From RDC   N/A - From RDC   Air Charter  ...
+10316   PMO - US    From RDC   N/A - From RDC   Air Charter  ...
+
+      unit of measure (per pack) line item quantity line item value
+10305                         60             300000      2316000.00  \
+10306                         30              16006        73467.54
+10310                         60              18000        64800.00
+10315                        120              70000      1304800.00
+10316                         60              15000        97800.00
+
+      pack price unit price              manufacturing site
+10305       7.72       0.13    Hetero Unit III Hyderabad IN  \
+10306       4.59       0.15   Hetero, Jadcherla, unit 5, IN
+10310       3.60       0.06  Mylan (formerly Matrix) Nashik
+10315      18.64       0.16     ABBVIE Ludwigshafen Germany
+10316       6.52       0.11       Aurobindo Unit III, India
+
+      first line designation weight (kilograms) freight cost (usd)
+10305                   True            39688.0           28277.42  \
+10306                   True             1504.0            1653.90
+10310                   True             2253.0            3785.72
+10315                   True            15198.0           26180.00
+10316                   True             1547.0            3410.00
+
+      line item insurance (usd)
+10305                   2725.93
+10306                     75.52
+10310                     76.27
+10315                   1341.33
+10316                    115.11
+
+[5 rows x 33 columns]
+#+end_example
 
 
 *** Removing Data Outliers
 
-Removing outliers will be done by utilizing the interquartile range. Additionally this is only applied to continuous variables.
+Removing outliers will be done by utilizing the interquartile range (IQR). Additionally this is only applied to continuous variables.
 
 *** Handling Missing Data
 
