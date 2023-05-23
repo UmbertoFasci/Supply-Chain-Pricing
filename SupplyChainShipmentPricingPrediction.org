@@ -242,15 +242,10 @@ def outlier_treatment(datacolumn):
 
 #+RESULTS:
 
-
 Obtain lower and upper bound values found in the ~line item value~ variable.
-#+begin_src jupyter-python :exports both
+#+begin_src jupyter-python :exports code
 lowerbound_LIV,upperbound_LIV = outlier_treatment(dataset_df['line item value'])
-#+end_src
 
-#+RESULTS:
-
-#+begin_src jupyter-python :exports both
 dataset_df[(dataset_df['line item value'] < lowerbound_LIV) | (dataset_df['line item value'] > upperbound_LIV)]
 #+end_src
 
@@ -337,8 +332,10 @@ dataset_df[(dataset_df['line item value'] < lowerbound_LIV) | (dataset_df['line 
 [473 rows x 33 columns]
 #+end_example
 
+473 rows of data within the ~line item value~ variable are described as being outside 25, and 75 percentile. This is many values and perhaps a more restrictive percentile range should be considered such as (5, 95).
+
 Detecting outliers in ~pack price~ variable.
-#+begin_src jupyter-python :exports both
+#+begin_src jupyter-python :exports code
 lowerbound_PP,upperbound_PP = outlier_treatment(dataset_df['pack price'])
 
 dataset_df[(dataset_df['pack price'] < lowerbound_PP) | (dataset_df['pack price'] > upperbound_PP)]
@@ -427,6 +424,7 @@ dataset_df[(dataset_df['pack price'] < lowerbound_PP) | (dataset_df['pack price'
 [507 rows x 33 columns]
 #+end_example
 
+507 rows of data within the ~pack price~ variable are described as being outside the 25 and 75 percentile. Again, this is so much data and a more restrective percentile range should be considered.
 
 *** Handling Missing Data
 
