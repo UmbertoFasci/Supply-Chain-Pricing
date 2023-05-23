@@ -337,7 +337,95 @@ dataset_df[(dataset_df['line item value'] < lowerbound_LIV) | (dataset_df['line 
 [473 rows x 33 columns]
 #+end_example
 
+Detecting outliers in pack price variable.
+#+begin_src jupyter-python :exports both
+lowerbound_PP,upperbound_PP = outlier_treatment(dataset_df['pack price'])
 
+dataset_df[(dataset_df['pack price'] < lowerbound_PP) | (dataset_df['pack price'] > upperbound_PP)]
+#+end_src
+
+#+RESULTS:
+#+begin_example
+          id project code            pq #   po / so #  asn/dn #
+24       116   108-VN-T01  Pre-PQ Process    SCMS-759   ASN-632  \
+64       630   112-NG-T01  Pre-PQ Process  SCMS-26560  ASN-2366
+84       858   109-TZ-T01  Pre-PQ Process  SCMS-34680  ASN-3332
+91       985   109-TZ-T01  Pre-PQ Process  SCMS-38370  ASN-3751
+112     1109   104-CI-T01  Pre-PQ Process  SCMS-42210  ASN-4086
+...      ...          ...             ...         ...       ...
+9637   85936   114-UG-T30       FPQ-10786    SO-43520   DN-3011
+10077  86480   151-NG-T30        FPQ-9432    SO-42333   DN-2688
+10097  86501   114-UG-T30        FPQ-9876    SO-42311   DN-2780
+10109  86513   109-TZ-T30        FPQ-9271    SO-41582   DN-2844
+10126  86530   114-UG-T30       FPQ-10786    SO-43530   DN-2925
+
+             country managed by  fulfill via vendor inco term shipment mode
+24           Vietnam   PMO - US  Direct Drop              FCA           Air  \
+64           Nigeria   PMO - US  Direct Drop              EXW           Air
+84          Tanzania   PMO - US  Direct Drop              CIP           Air
+91          Tanzania   PMO - US  Direct Drop              FCA           Air
+112    Côte d'Ivoire   PMO - US  Direct Drop              FCA           Air
+...              ...        ...          ...              ...           ...
+9637          Uganda   PMO - US     From RDC   N/A - From RDC           Air
+10077        Nigeria   PMO - US     From RDC   N/A - From RDC   Air Charter
+10097         Uganda   PMO - US     From RDC   N/A - From RDC           Air
+10109       Tanzania   PMO - US     From RDC   N/A - From RDC         Truck
+10126         Uganda   PMO - US     From RDC   N/A - From RDC           Air
+
+       ... unit of measure (per pack) line item quantity line item value
+24     ...                        120                500        41095.00  \
+64     ...                        540                 34         1547.68
+84     ...                         30              50000      2520000.00
+91     ...                        300                524        21536.40
+112    ...                        120              10240       420864.00
+...    ...                        ...                ...             ...
+9637   ...                        120               8494       210311.44
+10077  ...                        120              24470       726269.60
+10097  ...                        120               2427        72033.36
+10109  ...                        120              16114       472301.34
+10126  ...                        120               8335       222544.50
+
+      pack price unit price               manufacturing site
+24         82.19       0.68      ABBVIE Ludwigshafen Germany  \
+64         45.52       0.08  Novartis Pharma AG, Switzerland
+84         50.40       1.68                 MSD, Haarlem, NL
+91         41.10       0.14        ABBVIE (Abbott) Logis. UK
+112        41.10       0.34      ABBVIE Ludwigshafen Germany
+...          ...        ...                              ...
+9637       24.76       0.21        Aurobindo Unit III, India
+10077      29.68       0.25        Aurobindo Unit III, India
+10097      29.68       0.25   Mylan (formerly Matrix) Nashik
+10109      29.31       0.24   Mylan (formerly Matrix) Nashik
+10126      26.70       0.22        Aurobindo Unit III, India
+
+      first line designation weight (kilograms) freight cost (usd)
+24                      True              117.0            1767.38  \
+64                      True              115.0            1755.87
+84                      True             4093.0            9339.00
+91                      True              644.0            6668.61
+112                     True             2523.0           14806.48
+...                      ...                ...                ...
+9637                    True             2089.0           17032.59
+10077                   True             6808.0           21347.12
+10097                   True              647.0            7263.17
+10109                   True             4256.0            6052.10
+10126                   True             2034.0           10977.65
+
+      line item insurance (usd)
+24                        65.75
+64                         2.48
+84                      4939.20
+91                        42.21
+112                      824.89
+...                         ...
+9637                     260.16
+10077                   1018.23
+10097                    100.99
+10109                    662.17
+10126                    275.29
+
+[507 rows x 33 columns]
+#+end_example
 
 
 *** Handling Missing Data
