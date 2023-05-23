@@ -1,5 +1,23 @@
 #+title: Supply Chain Shipment Pricing Prediction
 
+* Introduction
+
+
+* Theoretical Background
+
+In this study, Gradient Boosted Tree, MLR, and supervised learning algorithms DNN, XGBoost regression, and LightGBM regression were used. The definition and characteristics of each algorithm are shown in []
+
+
+#+NAME: Table 1
+| Algorithm                                | Definition | Characteristic |
+|------------------------------------------+------------+----------------|
+| Gradient boosted trees model (GBT Model) |            |                |
+| Multiple linear regression (MLR)         |            |                |
+| Deep neural network (DNN)                |            |                |
+| XGBoost regression                       |            |                |
+| LightGBM regression                      |            |                |
+
+
 #+begin_src jupyter-python :export code
 import tensorflow_decision_forests as tfdf
 
@@ -86,6 +104,8 @@ print(dataset_df.tail())
 
 *** Creating and Removing Variables
 
+
+
 *** Removing Data Outliers
 
 *** Handling Missing Data
@@ -100,11 +120,11 @@ print(dataset_df.tail())
 
 ** Data Preperation
 
+** Gradient Boosted Trees Model (GBT Model)
+
 ** MLR
 
 ** DNN
-
-** XGBoost Decision Forest Regression
 
 ** XGBoost Regression
 
