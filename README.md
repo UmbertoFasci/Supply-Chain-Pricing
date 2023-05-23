@@ -2,6 +2,8 @@
 
 ![Status](https://img.shields.io/badge/Status-In%20Development-88CE02.svg?style=?style=flat-square)
 
+## Algorithms Utilized
+
 | Algorithm                                | Definition                                                                                                       | Characteristic                                                                                    |
 |------------------------------------------|------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
 | Gradient boosted trees model (GBT Model) | Each tree is trained to predict and then "correct" for the errors of the previously trained trees                | A set of shallow decision trees trained sequentially.                                             |
