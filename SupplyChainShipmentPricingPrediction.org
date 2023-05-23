@@ -179,7 +179,7 @@ memory usage: 1.2+ MB
 We can focus on the statistics regarding the numerical columns of the dataset.
 
 #+begin_src jupyter-python :exports both
-dataset_df.describe().to_markdown()
+dataset_df.describe()
 #+end_src
 
 #+RESULTS:
