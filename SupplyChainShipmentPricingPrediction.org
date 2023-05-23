@@ -176,6 +176,16 @@ dtypes: bool(1), float64(6), int64(3), object(23)
 memory usage: 1.2+ MB
 #+end_example
 
+We can focus on the statistics regarding the numerical columns of the dataset.
+
+#+begin_src jupyter-python :exports both
+dataset_df.describe().to_markdown()
+#+end_src
+
+#+RESULTS:
+: |       |      id |   unit of measure (per pack) |   line item quantity |   line item value |   pack price |   unit price |   weight (kilograms) |   freight cost (usd) |   line item insurance (usd) |\n|:------|--------:|-----------------------------:|---------------------:|------------------:|-------------:|-------------:|---------------------:|---------------------:|----------------------------:|\n| count |  4571   |                    4571      |               4571   |    4571           |    4571      |  4571        |              4571    |              4571    |                    4571     |\n| mean  | 56957.1 |                      79.9591 |              27470.2 |  209166           |      12.0198 |     0.198324 |              3908.03 |             10761.1  |                     318.84  |\n| std   | 30959.7 |                      86.896  |              48231.7 |  416949           |      18.3855 |     0.290996 |              7876.81 |             15193.7  |                     609.248 |\n| min   |   115   |                       5      |                  1   |       0           |       0      |     0        |                 1    |                14.36 |                       0     |\n| 25%   | 22402   |                      30      |               1591   |   10430.5         |       3.4    |     0.06     |               268    |              2336.27 |                      16.075 |\n| 50%   | 75733   |                      60      |               8676   |   57780           |       7.3    |     0.14     |              1347    |              5900    |                      86.36  |\n| 75%   | 83868.5 |                      60      |              33422   |  224784           |      11.75   |     0.23     |              4287    |             13322.9  |                     343.335 |\n| max   | 86815   |                    1000      |             619999   |       5.95199e+06 |     306.88   |    14.04     |            154780    |            194623    |                    7708.44  |
+
+
 *** Removing Data Outliers
 
 Removing outliers will be done by utilizing the interquartile range (IQR). Additionally this is only applied to continuous variables.
