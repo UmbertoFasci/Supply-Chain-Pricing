@@ -218,7 +218,17 @@ max         194623.440000                7708.440000
 
 *** Removing Data Outliers
 
-Removing outliers will be done by utilizing the interquartile range (IQR). Additionally this is only applied to continuous variables.
+Removing outliers will be done by utilizing the interquartile range (IQR). Additionally this is only applied to continuous variables. These include the variables with data type ~float64~.
+
+#+NAME: Table 2
+| Continuous Variable       | Description |
+|---------------------------+-------------|
+| Line item value           |             |
+| Pack price                |             |
+| Unit price                |             |
+| Weight (kilograms)        |             |
+| Freight cost (USD)        |             |
+| Line item insurance (USD) |             |
 
 *** Handling Missing Data
 
