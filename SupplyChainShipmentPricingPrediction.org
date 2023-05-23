@@ -121,6 +121,16 @@ dataset_df.dropna(inplace = True)
 
 #+RESULTS:
 
+Now let's see if the remaining dataset is prepared for further processing.
+
+#+begin_src jupyter-python
+dim = dataset_df.shape
+
+print(f"Shape of Shipment Pricing dataset after weight and cost reference removal: {dim}")
+#+end_src
+
+#+RESULTS:
+: Shape of Shipment Pricing dataset after weight and cost reference removal: (4571, 33)
 
 *** Removing Data Outliers
 
