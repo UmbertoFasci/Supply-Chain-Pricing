@@ -222,7 +222,7 @@ Removing outliers will be done by utilizing the interquartile range (IQR). Addit
 
 *** Handling Missing Data
 
-Two methods for handling the missing data will be applied to the dataset. (1) Listwise deletion and (2) mean imputation. Creating a set of two separate datasets after missing data handling.
+By removing all non-numerical data in the weight and freight cost variables, the missing values were handled successfully.
 
 * Derivation of Key Factors
 
