@@ -27,7 +27,6 @@ import numpy as np
 import pandas as pd
 import tensorflow as tf
 import math
-import tabulate
 #+end_src
 
 #+RESULTS:
@@ -229,6 +228,19 @@ Removing outliers will be done by utilizing the interquartile range (IQR). Addit
 | Weight (kilograms)        | Weight for all lines on an ASN DN                                                          |
 | Freight cost (USD)        | Freight charges associated with all lines on the respective ASN DN                         |
 | Line item insurance (USD) | Line item cost of insurance, created by applying an annual flat rate to commodity cost     |
+
+Outlier detection function:
+#+begin_src jupyter-python :exports both
+def outlier_treatment(datacolumn):
+    sorted(datacolumn) # arrange data in ascending order
+    Q1,Q3 = np.percentile(datacolumn, [25, 75])
+    IQR = Q3 - Q1
+    lower_range = Q1 - (1.5 * IQR)
+    upper_bound = Q3 + (1.5 * IQR)
+    return lower_range, upper_range
+#+end_src
+
+#+RESULTS:
 
 *** Handling Missing Data
 
