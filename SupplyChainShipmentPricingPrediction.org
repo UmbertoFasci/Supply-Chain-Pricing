@@ -236,11 +236,109 @@ def outlier_treatment(datacolumn):
     Q1,Q3 = np.percentile(datacolumn, [25, 75])
     IQR = Q3 - Q1
     lower_range = Q1 - (1.5 * IQR)
-    upper_bound = Q3 + (1.5 * IQR)
-    return lower_range, upper_range
+    upper_range = Q3 + (1.5 * IQR)
+    return lower_range,upper_range
 #+end_src
 
 #+RESULTS:
+
+
+Obtain lower and upper bound values found in the line item value variable.
+#+begin_src jupyter-python :exports both
+lowerbound_LIV,upperbound_LIV = outlier_treatment(dataset_df['line item value'])
+#+end_src
+
+#+RESULTS:
+
+#+begin_src jupyter-python :exports both
+dataset_df[(dataset_df['line item value'] < lowerbound_LIV) | (dataset_df['line item value'] > upperbound_LIV)]
+#+end_src
+
+#+RESULTS:
+#+begin_example
+          id project code            pq #   po / so #  asn/dn #     country
+84       858   109-TZ-T01  Pre-PQ Process  SCMS-34680  ASN-3332    Tanzania  \
+200     1888   107-RW-T01  Pre-PQ Process  SCMS-25520  ASN-2079      Rwanda
+201     1889   107-RW-T01  Pre-PQ Process  SCMS-25520  ASN-2080      Rwanda
+236     2305   131-NG-T01  Pre-PQ Process  SCMS-37370  ASN-3497     Nigeria
+399     3828   107-RW-T01  Pre-PQ Process  SCMS-43870  ASN-4687      Rwanda
+...      ...          ...             ...         ...       ...         ...
+10222  86653   151-NG-T30       FPQ-12248    SO-45670   DN-3539     Nigeria
+10258  86703   107-RW-T30       FPQ-14111    SO-48800   DN-3788      Rwanda
+10303  86800   111-MZ-T30       FPQ-15195    SO-50141   DN-4231  Mozambique
+10305  86802   111-MZ-T30       FPQ-15195    SO-50130   DN-4235  Mozambique
+10315  86814   151-NG-T30       FPQ-14989    SO-51424   DN-4276     Nigeria
+
+      managed by  fulfill via vendor inco term shipment mode  ...
+84      PMO - US  Direct Drop              CIP           Air  ...  \
+200     PMO - US  Direct Drop              CIP           Air  ...
+201     PMO - US  Direct Drop              CIP           Air  ...
+236     PMO - US  Direct Drop              CIP           Air  ...
+399     PMO - US  Direct Drop              CIP           Air  ...
+...          ...          ...              ...           ...  ...
+10222   PMO - US     From RDC   N/A - From RDC   Air Charter  ...
+10258   PMO - US     From RDC   N/A - From RDC         Truck  ...
+10303   PMO - US     From RDC   N/A - From RDC         Truck  ...
+10305   PMO - US     From RDC   N/A - From RDC         Truck  ...
+10315   PMO - US     From RDC   N/A - From RDC   Air Charter  ...
+
+      unit of measure (per pack) line item quantity line item value
+84                            30              50000      2520000.00  \
+200                           60              47879       569281.31
+201                           60              61021       725539.69
+236                           30              25000      1260000.00
+399                           60              54432       641753.28
+...                          ...                ...             ...
+10222                         60             169447       635426.25
+10258                         60              86008       697524.88
+10303                         30             200000      1920000.00
+10305                         60             300000      2316000.00
+10315                        120              70000      1304800.00
+
+      pack price unit price              manufacturing site
+84         50.40       1.68                MSD, Haarlem, NL  \
+200        11.89       0.20       Aurobindo Unit III, India
+201        11.89       0.20       Aurobindo Unit III, India
+236        50.40       1.68                MSD, Haarlem, NL
+399        11.79       0.20  Mylan (formerly Matrix) Nashik
+...          ...        ...                             ...
+10222       3.75       0.06      Strides, Bangalore, India.
+10258       8.11       0.14    Hetero Unit III Hyderabad IN
+10303       9.60       0.32    Hetero Unit III Hyderabad IN
+10305       7.72       0.13    Hetero Unit III Hyderabad IN
+10315      18.64       0.16     ABBVIE Ludwigshafen Germany
+
+      first line designation weight (kilograms) freight cost (usd)
+84                      True             4093.0            9339.00  \
+200                     True             5311.0           30408.04
+201                     True             6768.0           38120.96
+236                     True             2067.0            7933.38
+399                     True             7278.0           61925.70
+...                      ...                ...                ...
+10222                   True             8039.0           30936.10
+10258                   True            11117.0           15617.93
+10303                   True            26603.0           19194.37
+10305                   True            39688.0           28277.42
+10315                   True            15198.0           26180.00
+
+      line item insurance (usd)
+84                      4939.20
+200                      910.85
+201                     1160.86
+236                     2469.60
+399                     1257.84
+...                         ...
+10222                    786.02
+10258                    717.06
+10303                   2259.84
+10305                   2725.93
+10315                   1341.33
+
+[473 rows x 33 columns]
+#+end_example
+
+
+
 
 *** Handling Missing Data
 
