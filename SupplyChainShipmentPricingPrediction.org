@@ -426,6 +426,8 @@ dataset_df[(dataset_df['pack price'] < lowerbound_PP) | (dataset_df['pack price'
 
 507 rows of data within the ~pack price~ variable are described as being outside the 25 and 75 percentile. Again, this is so much data and a more restrective percentile range should be considered.
 
+*Further handling of outlier values will have to be done through a multivariate process.*
+
 *** Handling Missing Data
 
 By removing all non-numerical data in the weight and freight cost variables, the missing values were handled successfully.
