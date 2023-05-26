@@ -98,6 +98,9 @@ dataset_df.tail()
 [5 rows x 33 columns]
 #+end_example
 
+** Exploratory Data Analysis and visualization
+
+
 ** Data Preprocessing
 
 *** Creating and Removing Variables
