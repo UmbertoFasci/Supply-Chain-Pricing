@@ -101,6 +101,7 @@ dataset_df.tail()
 ** Exploratory Data Analysis and visualization
 
 
+
 ** Data Preprocessing
 
 *** Creating and Removing Variables
@@ -217,6 +218,18 @@ min             14.360000                   0.000000
 max         194623.440000                7708.440000
 #+end_example
 
+#+begin_src jupyter-python :results output file :file coor1.png :output-dir images/
+import sys
+import matplotlib as plt
+import seaborn as sns
+
+coor1 = sns.scatterplot(x='line item insurance (usd)', y='line item value', hue="country", data=dataset_df)
+
+sns.move_legend(coor1, "lower center", bbox_to_anchor=(.5, 1), ncol=6, title=None, frameon=False)
+#+end_src
+
+#+RESULTS:
+[[file:images/coor1.png]]
 
 *** Removing Data Outliers
 
