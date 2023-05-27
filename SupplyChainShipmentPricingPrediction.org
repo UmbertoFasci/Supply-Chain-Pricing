@@ -215,6 +215,25 @@ min             14.360000                   0.000000
 max         194623.440000                7708.440000
 #+end_example
 
+#+begin_src jupyter-python :exports both
+date_list=['scheduled delivery date', 'delivered to client date', 'delivery recorded date']
+same_date=[]
+
+for i in range(len(date_list)-1):
+    for j in dataset_df.index:
+        if dataset_df[date_list[i]][j]!=dataset_df[date_list[i+1]][j]:
+            same_date.append(j)
+#+end_src
+
+#+RESULTS:
+#+begin_src jupyter-python :exports both
+len(same_date)
+#+end_src
+
+#+RESULTS:
+: 5911
+
+
 #+begin_src jupyter-python :results output file :file coor1.png :output-dir images/
 import sys
 import matplotlib as plt
