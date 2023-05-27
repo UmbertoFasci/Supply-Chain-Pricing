@@ -305,10 +305,7 @@ len(same_date)
 #+RESULTS:
 : 5911
 
-#+begin_src jupyter-python :exports both
-
-#+end_src
-
+This might suggest date being an important factor in this dataset as a whole, as such modeling should include this data.
 
 #+begin_src jupyter-python :results output file :file coor1.png :output-dir images/
 import sys
