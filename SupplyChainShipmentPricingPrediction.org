@@ -215,6 +215,8 @@ min             14.360000                   0.000000
 max         194623.440000                7708.440000
 #+end_example
 
+Country-wise count:
+
 #+begin_src jupyter-python :exports both
 CountryCount = dataset_df['country'].value_counts().nlargest(50)
 print(CountryCount)
@@ -268,6 +270,22 @@ Guinea                   1
 Belize                   1
 Name: count, dtype: int64
 #+end_example
+
+Top 5 manufacturing sites for all shipment modes:
+#+begin_src jupyter-python :exports both
+ManLocs = dataset_df.groupby('manufacturing site').size().nlargest(5)
+print(ManLocs)
+#+end_src
+
+#+RESULTS:
+: manufacturing site
+: Aurobindo Unit III, India         3172
+: Mylan (formerly Matrix) Nashik    1415
+: Hetero Unit III Hyderabad IN       869
+: Cipla, Goa, India                  665
+: Strides, Bangalore, India.         540
+: dtype: int64
+
 
 #+begin_src jupyter-python :exports both
 date_list=['scheduled delivery date', 'delivered to client date', 'delivery recorded date']
