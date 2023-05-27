@@ -216,6 +216,60 @@ max         194623.440000                7708.440000
 #+end_example
 
 #+begin_src jupyter-python :exports both
+CountryCount = dataset_df['country'].value_counts().nlargest(50)
+print(CountryCount)
+#+end_src
+
+#+RESULTS:
+#+begin_example
+country
+South Africa          1406
+Nigeria               1194
+Côte d'Ivoire         1083
+Uganda                 779
+Vietnam                688
+Zambia                 683
+Haiti                  655
+Mozambique             631
+Zimbabwe               538
+Tanzania               519
+Rwanda                 430
+Congo, DRC             333
+Guyana                 237
+Ethiopia               216
+South Sudan            164
+Kenya                  111
+Burundi                 98
+Namibia                 95
+Cameroon                75
+Botswana                70
+Ghana                   58
+Dominican Republic      52
+Sudan                   46
+Swaziland               35
+Mali                    17
+Guatemala               15
+Pakistan                15
+Malawi                  14
+Benin                   13
+Lebanon                  8
+Libya                    8
+Angola                   7
+Liberia                  6
+Sierra Leone             4
+Lesotho                  4
+Senegal                  3
+Togo                     3
+Afghanistan              3
+Kyrgyzstan               2
+Kazakhstan               2
+Burkina Faso             2
+Guinea                   1
+Belize                   1
+Name: count, dtype: int64
+#+end_example
+
+#+begin_src jupyter-python :exports both
 date_list=['scheduled delivery date', 'delivered to client date', 'delivery recorded date']
 same_date=[]
 
@@ -232,6 +286,10 @@ len(same_date)
 
 #+RESULTS:
 : 5911
+
+#+begin_src jupyter-python :exports both
+
+#+end_src
 
 
 #+begin_src jupyter-python :results output file :file coor1.png :output-dir images/
